@@ -43,12 +43,15 @@ class CreateUsersTable extends Migration
                 "null" => true
             ],
             "created_at timestamp default current_timestamp",
-            "updated_at timestamp default current_timestamp on update current_timestamp"
+            "updated_at timestamp default current_timestamp on update current_timestamp",
+
         ]);
+        $this->forge->addKey("id", true);
+        $this->forge->createTable("users");
     }
 
     public function down()
     {
-        //
+        $this->forge->dropTable("users");
     }
 }
