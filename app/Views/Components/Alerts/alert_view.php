@@ -1,6 +1,6 @@
 <?php
 if ($type == "success") {
-    $type = "greed";
+    $type = "green";
 } else {
     $type = "red";
 }

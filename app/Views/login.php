@@ -9,12 +9,12 @@
 <form action="<?= route_to("admin.login.handler") ?>" method="POST">
     <?= csrf_field() ?>
     <!-- alert sucess -->
-    <?php if (!empty(session()->getFlashdata("success"))) : ?>
+    <!-- <?php if (!empty(session()->getFlashdata("success"))) : ?> -->
         <?php
         $alert = new \App\Views\Components\Alerts\AlertComponent();
         echo $alert->render('success', session()->getFlashdata("success"));
         ?>
-    <?php endif ?>
+    <!-- <?php endif ?> -->
     <!-- alert fail -->
     <?php if (!empty(session()->getFlashdata("fail"))) : ?>
         <?php
@@ -25,7 +25,7 @@
     <div class="space-y-4">
         <div>
             <label class="block text-sm font-medium text-gray-700">Username or Email</label>
-            <input type="email"
+            <input type="text"
                 name="login_id"
                 value="<?= set_value("login_id") ?>"
                 class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-1 focus:ring-gray-400">
