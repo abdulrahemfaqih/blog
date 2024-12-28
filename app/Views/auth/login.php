@@ -9,12 +9,12 @@
 <form action="<?= route_to("admin.login.handler") ?>" method="POST">
     <?= csrf_field() ?>
     <!-- alert sucess -->
-    <!-- <?php if (!empty(session()->getFlashdata("success"))) : ?> -->
+    <?php if (!empty(session()->getFlashdata("success"))) : ?>
         <?php
         $alert = new \App\Views\Components\Alerts\AlertComponent();
         echo $alert->render('success', session()->getFlashdata("success"));
         ?>
-    <!-- <?php endif ?> -->
+    <?php endif ?>
     <!-- alert fail -->
     <?php if (!empty(session()->getFlashdata("fail"))) : ?>
         <?php
@@ -52,17 +52,14 @@
                 <input type="checkbox" class="rounded border-gray-300">
                 <label class="ml-2 text-sm text-gray-600">Remember me</label>
             </div>
-            <a href="#" class="text-sm text-gray-600 hover:text-gray-800">Forgot password?</a>
+            <a href="<?= route_to("admin.forgot") ?>" class="text-sm text-gray-600 hover:text-gray-800">Forgot password?</a>
         </div>
         <button type="submit"
             class="w-full bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-700">Login</button>
     </div>
 
 </form>
-<p class="text-center mt-4 text-sm text-gray-600">
-    Don't have an account?
-    <a href="register.html" class="text-gray-800 hover:underline">Register</a>
-</p>
+
 <?= $this->endSection(); ?>
 
 

@@ -9,50 +9,14 @@ class Email extends BaseConfig
     public string $fromEmail  = '';
     public string $fromName   = '';
     public string $recipients = '';
-
-    /**
-     * The "user agent"
-     */
     public string $userAgent = 'CodeIgniter';
-
-    /**
-     * The mail sending protocol: mail, sendmail, smtp
-     */
-    public string $protocol = 'mail';
-
-    /**
-     * The server path to Sendmail.
-     */
+    public string $protocol = 'smtp';
     public string $mailPath = '/usr/sbin/sendmail';
-
-    /**
-     * SMTP Server Hostname
-     */
     public string $SMTPHost = '';
-
-    /**
-     * SMTP Username
-     */
     public string $SMTPUser = '';
-
-    /**
-     * SMTP Password
-     */
     public string $SMTPPass = '';
-
-    /**
-     * SMTP Port
-     */
-    public int $SMTPPort = 25;
-
-    /**
-     * SMTP Timeout (in seconds)
-     */
+    public int $SMTPPort = 465;
     public int $SMTPTimeout = 5;
-
-    /**
-     * Enable persistent SMTP connections
-     */
     public bool $SMTPKeepAlive = false;
 
     /**
@@ -62,7 +26,7 @@ class Email extends BaseConfig
      *             to the server. 'ssl' means implicit SSL. Connection on port
      *             465 should set this to ''.
      */
-    public string $SMTPCrypto = 'tls';
+    public string $SMTPCrypto = 'ssl';
 
     /**
      * Enable word-wrap
@@ -77,7 +41,7 @@ class Email extends BaseConfig
     /**
      * Type of mail, either 'text' or 'html'
      */
-    public string $mailType = 'text';
+    public string $mailType = 'html';
 
     /**
      * Character set (utf-8, iso-8859-1, etc.)
@@ -118,4 +82,16 @@ class Email extends BaseConfig
      * Enable notify message from server
      */
     public bool $DSN = false;
+
+
+    public function __construct()
+    {
+        $this->SMTPHost = getenv("email.SMTPHost");
+        $this->SMTPUser = getenv("email.SMTPUser");
+        $this->SMTPPass = getenv("email.SMTPPass");
+        $this->fromEmail = getenv("email.fromEmail");
+        $this->fromName = getenv("email.fromName");
+
+    }
+
 }

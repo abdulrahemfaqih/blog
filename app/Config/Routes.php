@@ -5,15 +5,23 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-// $routes->get('/', 'Home::index');
+$routes->get('/', 'HomeController::index', ["as" => "index"]);
 
 
 $routes->group("admin", static function ($routes) {
-    $routes->group("", [], static function ($routes) {
+    $routes->group("", ["filter" => "cifilter:auth"], static function ($routes) {
         $routes->get("dashboard", "AdminController::index", ["as" => "admin.dashboard"]);
+        $routes->get("logout", "AuthController::logoutHandler", ["as" => "admin.logout"]);
     });
-    $routes->group("", [], static function ($routes) {
+    $routes->group("", ["filter" => "cifilter:guest"], static function ($routes) {
         $routes->get("login", "AuthController::loginForm", ["as" => "admin.login"]);
-        $routes->post("login", "AuthController::loginHandler", ["as"=> "admin.login.handler"]);
+        $routes->post("login", "AuthController::loginHandler", ["as" => "admin.login.handler"]);
+        $routes->get("forgot-password", "AuthController::forgotForm", ["as" => "admin.forgot"]);
+        $routes->post("send-password-reset-link", "AuthController::sendPasswordResetLink", ["as" => "send_reset_password_link"]);
+        $routes->get("password/rest/(:any)", "AuthController::resetPassword/$1", ["as" => "admin.reset-password"]);
     });
+});
+
+$routes->set404Override(function () {
+    return view('404');
 });
