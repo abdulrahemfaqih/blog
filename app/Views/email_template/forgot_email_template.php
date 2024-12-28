@@ -58,7 +58,7 @@
         <p>Or copy and paste this link in your browser:</p>
         <p style="word-break: break-all;"><?= $mailData['actionLink'] ?></p>
 
-        <p>This link will expire in 1 hour for security reasons.</p>
+        <p>This link will expire in 15 Minutes for security reasons.</p>
 
         <div class="footer">
             <p>If you have any questions, please don't hesitate to contact us.</p>
