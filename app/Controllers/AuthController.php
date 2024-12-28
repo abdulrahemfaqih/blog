@@ -4,41 +4,50 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Libraries\CIAuth;
-use App\Libraries\Hash;
-use App\Models\User;
+use App\Request\LoginRequest;
+use App\Service\AuthService;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class AuthController extends BaseController
 {
+    protected $loginRequest;
+    protected $authService;
+
+    public function __construct()
+    {
+        $this->loginRequest = new LoginRequest(service("request"));
+        $this->authService = new AuthService();
+    }
 
     public function loginForm()
     {
         $data = [
             "title" => "Login"
         ];
-        return view("login", $data);
+        return view("auth/login", $data);
     }
 
 
-    public function loginHandler() {
-        $fieldType = filter_var($this->request->getVar("login_id"), FILTER_VALIDATE_EMAIL) ? "email" : "username";
-        if ($fieldType == "email") {
-            $isValid = $this->validate([
-                "login_id" => [
-                    "rules" => "required|valid_email|id_not_unique[users.email]",
-                    "errors" => [
-                        "required" => "Email wajin diisi",
-                        "valid_email" => "Email tidak valid",
-                        "is_not_unique" => "Email tidak terdaftar"
-                    ]
-                    ],
-                    "password" => [
-                        "rules" => "required|min_length[5]|max_length[45]",
-                        "errors" => [
-                            "ruquired" => "Password wajib diisi"
-                        ]
-                    ]
+    public function loginHandler()
+    {
+        if (!$this->validate($this->loginRequest->rules())) {
+            return view("auth/login", [
+                "title" => "Login",
+                "validator" => $this->validator
             ]);
         }
+
+        $loginId = $this->request->getVar("login_id");
+        $password = $this->request->getVar("password");
+
+        $user = $this->authService->attempLogin($loginId, $password);
+
+        if (!$user) {
+            return redirect()->back()
+                ->withInput()
+                ->with('fail', 'Password atau email/username tidak cocok');
+        }
+        CIAuth::setCIAuth($user);
+        return redirect()->route('admin.dashboard');
     }
 }

@@ -10,7 +10,7 @@
         content="tailwind css dashboard, admin template, free dashboard, responsive dashboard, tailwind template, admin panel, dashboard template">
     <meta name="author" content="Abdul Rahem Faqih">
     <meta name="robots" content="index, follow">
-    <title><?= isset($title) ? $title : "Blog" ?></title>
+    <title><?= $title ?? "blog" ?></title>
     <script src="<?= base_url("js/main.js") ?>"></script>
 </head>
 

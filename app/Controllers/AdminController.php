@@ -13,6 +13,6 @@ class AdminController extends BaseController
             "title" => "Dashboard",
             "validation" => null
         ];
-        return view("dashboard", $data);
+        return view("pages/dashboard", $data);
     }
 }
