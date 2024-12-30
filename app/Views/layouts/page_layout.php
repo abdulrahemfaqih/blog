@@ -8,6 +8,9 @@
     <script src="<?= base_url("js/main.js") ?>"></script>
     <script src="<?= base_url("js/jquery.js") ?>"></script>
     <script src="<?= base_url("js/toast.js") ?>"></script>
+    <script src="<?= base_url("ijaboCroptool/ijaboCropTool.min.js") ?>"></script>
+    <!-- css for crop image -->
+    <link rel="stylesheet" href="<?= base_url("ijaboCroptool/ijaboCropTool.min.css") ?>">
     <style>
         rotate-180 {
             transform: rotate(180deg);

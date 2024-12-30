@@ -7,12 +7,11 @@ use CodeIgniter\HTTP\RequestInterface;
 class ProfileRequest
 {
     protected $request;
-    protected $userId;
 
-    public function __construct(RequestInterface $request, $userId)
+
+    public function __construct(RequestInterface $request)
     {
         $this->request = $request;
-        $this->request = $userId;
     }
 
 
@@ -26,7 +25,7 @@ class ProfileRequest
                 ]
             ],
             "username" => [
-                "rules" => "required|min_length[4],is_unique[ursers.username,id,'.$userId.']",
+                "rules" => "required|min_length[4]|is_unique[users.username,id,$userId]",
                 "errors" => [
                     "required" => "Username wajib diisi",
                     "min_length" => "Username minimal 4 karakter",
@@ -34,9 +33,10 @@ class ProfileRequest
                 ]
             ],
             "email" => [
-                "rules" => "required",
+                "rules" => "required|valid_email",
                 "errors" => [
                     "required" => "Email wajib diisi",
+                    "valid_email" => "Format email tidak sesuai"
                 ]
             ],
 

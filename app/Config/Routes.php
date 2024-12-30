@@ -14,6 +14,7 @@ $routes->group("admin", static function ($routes) {
         $routes->get("logout", "AuthController::logoutHandler", ["as" => "admin.logout"]);
         $routes->get("profile", "AdminController::profile", ["as" => "admin.profile"]);
         $routes->post("update-profile", "AdminController::updateProfile", ["as" => "admin.update.profile"]);
+        $routes->post("update-profile-picture", "AdminController::updateProfilePicture", ["as" => "admin.update-profile-picture"]);
     });
     $routes->group("", ["filter" => "cifilter:guest"], static function ($routes) {
         $routes->get("login", "AuthController::loginForm", ["as" => "admin.login"]);
