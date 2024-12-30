@@ -102,7 +102,12 @@ class AdminController extends BaseController
         $newFileName = "UIMG_" . $userId . "_" . $file->getRandomName();
 
         try {
-            if ($file->move($path, $newFileName)) {
+            $uploadImage = service("image")
+                ->withFile($file)
+                ->resize(450, 450, true, 'height')
+                ->save($path . $newFileName);
+
+            if ($uploadImage) {
                 if ($oldPicturePath && file_exists($path . $oldPicturePath)) {
                     unlink($path . $oldPicturePath);
                 }
@@ -117,12 +122,12 @@ class AdminController extends BaseController
 
                 ]);
             }
-        } catch (\Exception $e) {
-
+        } catch (\Throwable $th) {
             echo json_encode([
                 "status" => 0,
                 "msg" => "Gagal mengupload file"
             ]);
         }
+
     }
 }
