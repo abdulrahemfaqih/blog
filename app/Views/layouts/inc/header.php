@@ -12,11 +12,12 @@
         <div class="hidden md:flex items-center space-x-4">
             <div class="relative">
                 <button id="profile-button" class="flex items-center space-x-2">
-                    <img src="https://via.placeholder.com/40" alt="Profile" class="w-8 h-8 rounded-full">
-                    <span>John Doe</span>
+                    <?php $user = getUser(); ?>
+                    <img src="<?= $user->picture == null ? 'https://via.placeholder.com/40' : base_url($user->picture) ?>" alt="Profile" class="w-8 h-8 rounded-full">
+                    <span><?= getUser()->name ?></span>
                 </button>
                 <div id="profile-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
-                    <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100">Profile</a>
+                    <a href="<?= route_to("admin.profile") ?>" class="block px-4 py-2 text-sm hover:bg-gray-100">Profile</a>
                     <a href="<?= route_to("admin.logout") ?>" class="block px-4 py-2 text-sm hover:bg-gray-100">Logout</a>
                 </div>
             </div>

@@ -2,6 +2,7 @@
 
 
 namespace App\Libraries;
+use App\Models\User;
 
 class CIAuth
 {
@@ -20,7 +21,7 @@ class CIAuth
         if (!$session->has("logged_in") || !$session->has("userData")) {
             return null;
         }
-        $userData = $session->get("UserData");
+        $userData = $session->get("userData");
         return $userData["id"] ?? null;
     }
 
@@ -41,7 +42,8 @@ class CIAuth
         if (!$session->has("logged_in") || !$session->has("userData")) {
             return null;
         }
-        $userData = $session->get("UserData");
-        return $userData ?? null;
+
+        $user = new User();
+        return $user->asObject()->where("id", CIAuth::id())->first();
     }
 }

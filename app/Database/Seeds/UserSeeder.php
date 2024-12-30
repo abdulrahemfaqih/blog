@@ -10,7 +10,7 @@ class UserSeeder extends Seeder
     {
         $data = [
             "name" => "admin",
-            "email" => "admin@gmail.com",
+            "email" => "faqih3935@gmail.com",
             "username" => "admin",
             "password" => password_hash("faqih", PASSWORD_BCRYPT)
         ];

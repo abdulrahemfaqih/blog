@@ -22,7 +22,7 @@ class AuthController extends BaseController
     protected $emailRequest;
     protected $resetPasswordRequest;
 
-    protected $helpers = ["CIMail"];
+    protected $helpers = ["CIMail", "url", "form", "CIFunctions"];
 
     public function __construct()
     {
